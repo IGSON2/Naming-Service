@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" style="width: 100%; height: 100%;">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1, width=device-width"> 
+        <title>Get Nyehing</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+
+    </head>
+    <body style="width: 100%; height: 100%;">
+        <header>
+            <h3 class="bg-dark p-2 mb-3" style="width: 100%;">
+                <a class="text-white" href ="/" style="text-decoration:none;">Go back home</a>
+            </h3>
+        </header>
+        <p class="p-2 fw-bold text-center" style="font-size: 12pt; width: 100%;">&#128226; 서버 정보가 아직 갱신되지 않았을 수도 있습니다. 인게임에서 한 번 더 확인해 보세요!</p>
+        <div class="onlypc">
+            {{$left := .LeftUser}}
+            <aside style="width: 25%; height: 100%; float: left;">
+                <div style="width: 100%; height: 60%; text-align: center; margin-top: 20%;">
+                
+                    <div style="width: 100%; height: 20%;">
+                        <b style="font-size: 1.5vw"></br></b>
+                        <div>
+                            <b style="font-size: 1vw;">{{$left.Name}} &#127908; </b></br>
+                            <span style="font-size:1vw; font-family: 'Do Hyeon', sans-serif; background-color: #F6C36A; border-radius: 5px;">{{$left.Says}}</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <img style="width: 70%; height:auto; transform: scaleX(-1);" src={{$left.Img}}>
+                        <p style="text-align: center; "><img style="height: 1%; width: 4%;" src={{$left.Server}}><strong style="font-size: 0.9vw;"> {{$left.Name}}</strong></p>    
+                    </div>
+                </div>
+                <div style="width: 100%; height: 10%; text-align: center;">
+                    <p></p></br></br>
+                    <b style="font-size: 1vw; color:#212529;">나도 한 마디 하기 <a href="/promote/1" style="padding: 2px 5px 2px 5px; border-radius: 7px; text-decoration: none; color: floralwhite; background-color:#212529;">GO !</a></b>
+                </div>
+            </aside>
+
+            {{$right := .RightUser}}
+            <aside style="width: 25%; height: 100%; float: right;">
+                <div style="width: 100%; height: 60%; text-align: center; margin-top: 20%;">
+
+                    <div style="width: 100%; height: 20%;">
+                        <b style="font-size: 1.5vw"></br></b>
+                        <div>
+                            <b style="font-size: 1vw;">{{$right.Name}} &#127908; </b></br>
+                            <span style="font-size:1vw; font-family: 'Do Hyeon', sans-serif; background-color: #F6C36A; border-radius: 5px;">{{$right.Says}}</span>
+                        </div>
+                    </div>
+                    <img style="width: 70%; height:auto;" src={{$right.Img}}>
+                    <p style="text-align: center; "><img style="height: 1%; width: 4%;" src={{$right.Server}}><strong style="font-size: 0.9vw;"> {{$right.Name}}</strong></p>
+                </div>
+                <div style="width: 100%; height: 10%; text-align: center;">
+                    <p></p></br></br>
+                    <b style="font-size: 1vw; color:#212529;">나도 한 마디 하기 <a href="/promote/1" style="padding: 2px 5px 2px 5px; border-radius: 7px; text-decoration: none; color: floralwhite; background-color:#212529;">GO !</a></b>
+                </div>
+            </aside>
+
+            <section class="d-grid gap-3 p-2" style="width: 50%; margin:0 auto;">
+                <div style="margin:0 auto; width: 80%; height: 100%;">
+                    {{$result := .Result}}
+                    {{range $result}}
+                    <ul class="list-group" style="margin:0 auto; font-size: 12pt;">
+                    <li class="list-group-item"><strong>Name: </strong>{{.Name}}</li>
+                    {{if (eq .OPGG "Available !")}}
+                        <li class="list-group-item"><strong>Search Result : <mark class="bg-info text-light">{{.OPGG}}</mark></strong></li>
+                    {{else}}
+                        <li class="list-group-item"><strong>Search Result : <mark class="bg-danger text-light">{{.OPGG}}</mark></strong></li>
+                    {{end}}
+                    </ul>
+                    {{end}}
+                </div>
+                <div style="margin:0 auto;">
+                    <p style="margin-bottom: 0em;"><span class="p-4 fw-bold" style="font-size: 12pt;">마음에 드는 이름이 없었나요?</span>&#128533;</p>
+                </div>
+                <div class="p-1" style="width:100%; text-align: center;">
+                    <form method="POST" action="/" class="mx-0">
+                    <input style="height: 40px; width: 60%; border-radius: 5px;" type="number" min="2" max="6" placeholder="글자수를 입력해주세요 !" required name="nameLen" />
+                    <button style="height: 40px; width: 15%; border-radius: 5px; margin-bottom: 8px;" class="btn btn-dark"> RETRY ! </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <script>
+            var outerwidth = window.outerWidth;
+            var onlypc = document.getElementsByClassName("onlypc");
+            if(outerwidth < 800){
+                for (var i = 0; i < onlypc.length; i++) {
+                    onlypc[i].style.display = 'none';
+                }
+            }
+        </script>
+
+        <div class="onlymobile">
+            <section class="d-grid gap-3 p-2" style="width: 90%; margin:0 auto;">
+                <div style="margin:0 auto; width: 90%; height: 100%;">
+                    {{$result := .Result}}
+                    {{range $result}}
+                    <ul class="list-group" style="margin:0 auto; font-size: 12pt;">
+                    <li class="list-group-item"><strong>Name: </strong>{{.Name}}</li>
+                    {{if (eq .OPGG "Available !")}}
+                        <li class="list-group-item"><strong>Search Result : <mark class="bg-info text-light">{{.OPGG}}</mark></strong></li>
+                    {{else}}
+                        <li class="list-group-item"><strong>Search Result : <mark class="bg-danger text-light">{{.OPGG}}</mark></strong></li>
+                    {{end}}
+                    </ul>
+                    {{end}}
+                </div>
+                <div style="margin:0 auto;">
+                    <p style="margin-bottom: 0em;"><span class="p-4 fw-bold" style="font-size: 12pt;">마음에 드는 이름이 없었나요?</span>&#128533;</p>
+                </div>
+                <div class="p-1" style="width:100%; text-align: center;">
+                    <form method="POST" action="/" class="mx-0">
+                    <input style="height: 40px; width: 60%; border-radius: 5px;" type="number" min="2" max="6" placeholder="글자수를 입력해주세요 !" required name="nameLen" />
+                    <button style="height: 40px; width: 30%; border-radius: 5px;margin-bottom: 10px;" class="btn btn-dark"> RETRY ! </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <script>
+            var outerwidth = window.outerWidth;
+            var onlymobile = document.getElementsByClassName("onlymobile");
+            if(outerwidth > 800){
+                for (var i = 0; i < onlymobile.length; i++) {
+                    onlymobile[i].style.display = 'none';
+                }
+            }
+        </script>
+
+        <div>
+            <ins class="kakao_ad_area" style="display:none;" 
+            data-ad-unit    = "DAN-lqHExTHvWaiD9gZJ" 
+            data-ad-width   = "320" 
+            data-ad-height  = "100"></ins> 
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <footer>
+            <p></p></br>
+            <p class="p-4 fw-bold text-center" style="font-size: 12pt;" style="margin:0 auto;">Copyright © 2021 IGSON All rights reserved.</p>
+        </footer>
+    </body>
+</html>
