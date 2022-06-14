@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	dbName      = "dashBoard.db"
+	dbName      = "webpage/dashBoard.db"
 	linebucket  = "line"
 	boardbucket = "board"
 	lastLine    = "lastLine"

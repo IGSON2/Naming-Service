@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strings"
 	"sync"
-	"time"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -51,7 +50,6 @@ func MapleGG(n int) []nyehing.Nonames {
 func opggExist(searchname nyehing.Nonames) {
 	SerchingOpgg := opggurl + searchname.Name
 	resp := respheader(SerchingOpgg)
-	time.Sleep(2 * time.Second)
 	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	nyehing.Errchk(err)
 	_, exist := doc.Find(".user-profile").Attr("data-nick")
@@ -71,26 +69,6 @@ func opggExist(searchname nyehing.Nonames) {
 	nameCh <- searchname
 	wg.Done()
 }
-
-// func mapleExist(searchname nyehing.Nonames) {
-// 	SerchingMaple := mapleURL + searchname.Name + mapleURLtail
-// 	resp := respheader(SerchingMaple)
-// 	time.Sleep(1 * time.Second)
-// 	doc, err := goquery.NewDocumentFromReader(resp.Body)
-// 	nyehing.Errchk(err)
-// 	names := doc.Find(".rank_table_wrap").Find("tbody").Text()
-// 	var exist bool
-// 	if strings.Contains(names, searchname.Name) {
-// 		exist = true
-// 	}
-// 	if exist {
-// 		searchname.OPGG = "Not available"
-// 	} else {
-// 		searchname.OPGG = "Available !"
-// 	}
-// 	nameCh <- searchname
-// 	wg.Done()
-// }
 
 func GetUserInfo(userName string) SearchUserdata {
 	var user SearchUserdata

@@ -47,7 +47,7 @@ func home(rw http.ResponseWriter, r *http.Request) {
 	case "GET":
 		err := Templates.ExecuteTemplate(rw, "home.html", nil)
 		if err != nil {
-			fmt.Println(err)
+			mnameutil.Errchk(err)
 		}
 
 	case "POST":
@@ -70,12 +70,12 @@ func mName(rw http.ResponseWriter, r *http.Request) {
 	case "GET":
 		err := Templates.ExecuteTemplate(rw, "mname.html", data)
 		if err != nil {
-			fmt.Println(err)
+			mnameutil.Errchk(err)
 		}
 	case "POST":
 		err := Templates.ExecuteTemplate(rw, "mname.html", data)
 		if err != nil {
-			fmt.Println(err)
+			mnameutil.Errchk(err)
 		}
 	}
 }
@@ -95,7 +95,7 @@ func promotePage(rw http.ResponseWriter, r *http.Request) {
 
 		err = Templates.ExecuteTemplate(rw, "promote.html", data)
 		if err != nil {
-			fmt.Println(err)
+			mnameutil.Errchk(err)
 		}
 	case "POST":
 		r.ParseForm()
@@ -143,7 +143,7 @@ func sitemapxml(rw http.ResponseWriter, r *http.Request) {
 
 func Start() {
 	router := mux.NewRouter()
-	Templates = template.Must(template.ParseGlob("*.html"))
+	Templates = template.Must(template.ParseGlob("pages/*.html"))
 	robotTemplates = template.Must(template.ParseGlob(robots))
 	sitemapTemplates = template.Must(template.ParseGlob(sitemap))
 	fmt.Printf("Listening on http://localhost%s\n", port1)
